@@ -6,7 +6,7 @@ import os
 from tqdm import tqdm
 import pandas as pd
 
-FILENAME = "./euler_validators_original.csv"
+FILENAME = "/tmp/euler_validators_full.csv"
 CHUNK_SIZE = 1000
 THREADS = 10
 
