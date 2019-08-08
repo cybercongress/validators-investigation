@@ -18,7 +18,7 @@ def get_start_block():
     try:
         return int(line.decode("utf-8").split(",")[0]) + 1
     except Exception as e:
-        print(e)
+        print("Invalid beginning, starting from the first block")
         return 2
 
 def parse(json_response):
@@ -55,6 +55,5 @@ def scrape(start_block, thread):
 
 if __name__ == "__main__":
     start_block = get_start_block()
-    print(start_block)
     for thread in range(THREADS):
         scrape.delay(start_block, thread)

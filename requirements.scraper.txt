@@ -1,0 +1,4 @@
+celery[redis]
+requests
+pandas
+tqdm

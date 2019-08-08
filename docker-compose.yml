@@ -1,0 +1,21 @@
+version: '3'
+services:
+    scraper:
+        build: .
+        network_mode: host
+        depends_on:
+            - redis
+        volumes:
+            - ./data:/tmp
+
+    notebook:
+        image: jupyter/scipy-notebook
+        network_mode: host
+        volumes:
+            - ./data:/home/jovyan
+
+    redis:
+        image: redis
+        network_mode: host
+        volumes:
+            - ./data/redis:/data
