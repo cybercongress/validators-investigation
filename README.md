@@ -1,21 +1,20 @@
 # Validators analysis
 
-## Crawler
+## Installation and startup
 
-Make sure you run local redis instance before start. To receive blocks from cyberd node, use the following commands:
-
+To run containers, use a command:
 ```bash
-# This one will add recurrent tast to a task queue
-$ python ./parallel_scraper.py
-
-# This will execute tasks in queue
-$ celery -A parallel_scraper worker
+$ docker-compose up
 ```
 
-If you've done everything correctly, you'll get a non-empty file ./euler_validators_original.csv
+This command will start crawler and prepare notebook with calculations. To see table with validators' balances and explanatory calculations, click this link: http://localhost:8888/notebooks/notebook/balances.ipynb. 
 
-## Counters and visualizations
-
+The token will be requested, it can be found in the output of docker-compose command:
 ```
-TODO
+[I 00:15:36.448 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+notebook_1  | [C 00:15:36.448 NotebookApp] 
+notebook_1  |     
+notebook_1  |     Copy/paste this URL into your browser when you connect for the first time,
+notebook_1  |     to login with a token:
+notebook_1  |         http://(m-Inspiron-7577 or 127.0.0.1):8888/?token=903b1dd72d8b9c95c839c75162208a1a8147b270e6aa3208
 ```
