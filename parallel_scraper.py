@@ -5,7 +5,7 @@ import subprocess
 import os
 from tqdm import tqdm
 import pandas as pd
-from config import NODE_HOST, NODE_PORT
+from config import *
 
 FILENAME = "/tmp/euler_validators_full.csv"
 CHUNK_SIZE = 1000
@@ -13,14 +13,10 @@ THREADS = 10
 
 app = Celery('parallel_scraper', broker='redis://')
 
-def get_start_block():
-    os.system("touch {}".format(FILENAME))
-    line = subprocess.check_output(['tail', '-1', FILENAME])
-    try:
-        return int(line.decode("utf-8").split(",")[0]) + 1
-    except Exception as e:
-        print("Invalid beginning, starting from the first block")
-        return 2
+def first_run():
+    client = app.connection().channel().client
+    length = client.llen("celery")
+    return length == 0
 
 def parse(json_response):
     block_json = json_response["result"]["block"]
@@ -39,6 +35,8 @@ def write(df):
 def scrape(start_block, thread):
     blocks = []
     for block_index in range(start_block, start_block + CHUNK_SIZE):
+        if block_index > LAST_BLOCK:
+            return
         if block_index % THREADS != thread:
             continue
         url = "http://{}:{}/block?height={}".format(NODE_HOST, NODE_PORT, block_index)
@@ -59,6 +57,7 @@ def scrape(start_block, thread):
     scrape.delay(block_index, thread)
 
 if __name__ == "__main__":
-    start_block = get_start_block()
-    for thread in range(THREADS):
-        scrape.delay(start_block, thread)
+    if first_run():
+        print("Filling the empty queue...")
+        for thread in range(THREADS):
+            scrape.delay(FIRST_BLOCK, thread)
