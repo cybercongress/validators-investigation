@@ -5,6 +5,7 @@ import subprocess
 import os
 from tqdm import tqdm
 import pandas as pd
+from config import NODE_HOST, NODE_PORT
 
 FILENAME = "/tmp/euler_validators_full.csv"
 CHUNK_SIZE = 1000
@@ -40,11 +41,15 @@ def scrape(start_block, thread):
     for block_index in range(start_block, start_block + CHUNK_SIZE):
         if block_index % THREADS != thread:
             continue
-        url = "http://93.125.26.210:34657/block?height={}".format(block_index)
-        response = requests.get(url).json()
-        if "error" in response:
+        url = "http://{}:{}/block?height={}".format(NODE_HOST, NODE_PORT, block_index)
+        try:
+            response = requests.get(url).json()
+            if "error" in response:
+                raise requests.exceptions.ConnectionError()
+        except requests.exceptions.ConnectionError:
             block_index -= 1
             break
+
         block = parse(response)
         blocks.append(block)
 

@@ -7,6 +7,7 @@ COPY requirements.scraper.txt ./
 RUN pip install -r requirements.scraper.txt
 
 COPY parallel_scraper.py ./
+COPY config.py ./
 
 CMD celery -A parallel_scraper purge -f && \ 
     python ./parallel_scraper.py && \
