@@ -3,11 +3,11 @@ FROM python:3.6
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 PYTHONUNBUFFERED=1
 WORKDIR /  
 
-COPY requirements.scraper.txt ./
-RUN pip install -r requirements.scraper.txt
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
 
-COPY parallel_scraper.py ./
+COPY scraper.py ./
 COPY config.py ./
 
-CMD python ./parallel_scraper.py && \
-    celery -A parallel_scraper worker
+CMD python ./scraper.py && \
+    celery -A scraper worker --concurrency=10

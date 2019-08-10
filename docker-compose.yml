@@ -5,14 +5,13 @@ services:
         network_mode: host
         depends_on:
             - redis
-        volumes:
-            - ./data:/tmp
+            - mongo
 
     notebook:
         image: jupyter/scipy-notebook
         network_mode: host
         volumes:
-            - ./data:/home/jovyan
+            - ./data/notebook:/home/jovyan
 
     redis:
         image: redis
@@ -20,9 +19,15 @@ services:
         volumes:
             - ./data/redis:/data
 
+    mongo:
+        image: mongo
+        network_mode: host
+        volumes:
+            - ./data/mongo:/data/db
+
     flower:
         image: mher/flower
         network_mode: host
-        command: ["flower", "--broker=redis://redis"]
+        command: ["flower", "--broker=redis://localhost:6379"]
         depends_on:
             - redis
