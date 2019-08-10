@@ -22,6 +22,8 @@ def get_collection():
 
 def print_progress():
     start_blocks = get_start_blocks()
+    for block in start_blocks:
+        start_blocks[block] = "{0:.2f}%".format(start_blocks[block] / LAST_BLOCK * 100)
     logging.warning("Current progress: {}".format(start_blocks))
 
 def get_start_blocks():

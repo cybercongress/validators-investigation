@@ -10,4 +10,4 @@ COPY scraper.py ./
 COPY config.py ./
 
 CMD python ./scraper.py && \
-    celery -A scraper worker --concurrency=10
+    celery -A scraper worker
