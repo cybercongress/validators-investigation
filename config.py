@@ -1,3 +1,5 @@
+import os
+
 NODE_HOST = "93.125.26.210"
 NODE_PORT = "34657"
 DATABASE = "cyberd"
@@ -6,4 +8,4 @@ LAST_BLOCK = 4000000
 FIRST_BLOCK = 2
 
 CHUNK_SIZE = 1000
-THREADS = 10
+THREADS = int(os.environ["THREADS"])
