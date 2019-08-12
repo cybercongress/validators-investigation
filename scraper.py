@@ -48,6 +48,8 @@ def parse(json_response):
 
 def write(blocks):
     collection = get_collection()
+    if not blocks:
+        return
     try:
         collection.insert_many(blocks, ordered=False)
     except BulkWriteError as ex:
