@@ -21,7 +21,7 @@ def get_collection():
     return collection
 
 def print_progress():
-    start_blocks = get_max_blocks()
+    start_blocks = get_start_blocks()
     logging.warning("Current progress: {}".format(start_blocks))
 
 def get_start_blocks():
