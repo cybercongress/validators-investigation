@@ -21,15 +21,15 @@ def get_collection():
     return collection
 
 def print_progress():
-    start_blocks = get_start_blocks()
+    start_blocks = get_max_blocks()
     logging.warning("Current progress: {}".format(start_blocks))
 
 def get_start_blocks():
     collection = get_collection()
     aggregation = collection.aggregate([{         
         "$group" : {            
-            "_id": {"$mod": ["$block", 10]},            
-            "block": {"$max": "$block"}        
+            "_id": {"$mod": ["$block", THREADS]},            
+            "block": {"$max": "$block"}      
         }       
     }])
     return dict([(pair["_id"], pair["block"]) for pair in aggregation])
