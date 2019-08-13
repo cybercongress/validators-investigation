@@ -22,8 +22,6 @@ def get_collection():
 
 def print_progress():
     start_blocks = get_start_blocks()
-    for block in start_blocks:
-        start_blocks[block] = "{0:.2f}%".format(start_blocks[block] / LAST_BLOCK * 100)
     logging.warning("Current progress: {}".format(start_blocks))
 
 def get_start_blocks():
@@ -41,6 +39,7 @@ def parse(json_response):
     item = {
         "block": int(block_json["header"]["height"]),
         "validators": [commit["validator_address"] for commit in block_json["last_commit"]["precommits"] if commit],
+        # Uncomment next line if you need full block info
         # "summary": json.dumps(json_response)
     }
     item["_id"] = item["block"]
@@ -60,8 +59,6 @@ def scrape(start_block, thread):
     logging.warning("Started thread {} from block {}".format(thread, start_block))
     blocks = []
     for block_index in range(start_block, start_block + CHUNK_SIZE):
-        if block_index > LAST_BLOCK:
-            return
         if block_index % THREADS != thread:
             continue
         try:

@@ -1,11 +1,11 @@
 import os
 
-NODE_HOST = "93.125.26.210"
-NODE_PORT = "34657"
-DATABASE = "cyberd"
-
-LAST_BLOCK = 4000000
-FIRST_BLOCK = 2
-
-CHUNK_SIZE = 1000
+# There are options that can be configured in .env file
+NODE_HOST = os.environ["NODE_HOST"]
+NODE_PORT = os.environ["NODE_PORT"]
+FIRST_BLOCK = int(os.environ["FIRST_BLOCK"])
 THREADS = int(os.environ["THREADS"])
+
+# Probably, there is no need to touch this group of options
+DATABASE = "cyberd"
+CHUNK_SIZE = 1000
