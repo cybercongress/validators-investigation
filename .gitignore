@@ -1,0 +1,8 @@
+data/mongo/
+!data/mongo/.gitkeep
+data/redis/
+!data/redis/.gitkeep
+data/notebook/
+!data/notebook/__pycache__
+!data/notebook/converter.py
+!data/notebook/balances.ipynb
