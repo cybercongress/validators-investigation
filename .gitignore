@@ -1,3 +1,4 @@
+data/mongo
 !data/mongo/.gitkeep
 data/redis/
 !data/redis/.gitkeep
