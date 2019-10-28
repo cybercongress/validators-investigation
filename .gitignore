@@ -6,3 +6,4 @@ data/notebook/
 !data/notebook/__pycache__
 !data/notebook/converter.py
 !data/notebook/balances.ipynb
+.DS_Store
