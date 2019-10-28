@@ -3,7 +3,7 @@ data/mongo/
 data/redis/
 !data/redis/.gitkeep
 data/notebook/
-!data/notebook/__pycache__
+!data/notebook
 !data/notebook/converter.py
 !data/notebook/balances.ipynb
 .DS_Store
