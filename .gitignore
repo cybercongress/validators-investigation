@@ -1,0 +1,9 @@
+data/mongo
+!data/mongo/.gitkeep
+data/redis/
+!data/redis/.gitkeep
+data/notebook/
+data/notebook
+!data/notebook/converter.py
+!data/notebook/balances.ipynb
+.DS_Store
